@@ -37,16 +37,24 @@ int main () {
 
          switch (opn) {
             case 1:
-              {
-                  cout << "Introduza el mazo con el que quieres jugar ";
+                 {
+                  cout << "Introduce el mazo con el que quieres jugar "<<endl;
                   cin >> baraja;
                   mazo0.open ( baraja );
                   if ( mazo0.is_open ()) {
                      max = NumeroCartas ();
                 	 puntosA = modoA ( mazo0, max);
+
+
                   }
-              }
-                break;
+
+                  else {
+                       cout << " El archivo no existe"<<endl;
+
+                       }
+                 }
+
+                 break;
             case 2: //elige opción B
                  {
                      //dato = pedirunidades (dato);
