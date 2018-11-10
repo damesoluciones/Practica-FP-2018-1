@@ -57,7 +57,8 @@ int main () {
                  break;
             case 2: //elige opción B
                  {
-                     //dato = pedirunidades (dato);
+
+                	 //dato = pedirunidades (dato);
                      //cout<<"La conversión de "<<dato<<" millas = "<<convertirmiame(dato)<<" Kilómetros";
                  }
                 break;
@@ -100,4 +101,35 @@ float modoA ( ifstream& file, int numCartas ){
             contador++;
         }
     return puntos;
+}
+
+int determinaGanador (float puntosJugador, float puntosMaquina){
+	float jugador, maquina;
+	int resultado, limiteInferior, limiteSuperior;
+
+	puntosJugador = jugador;
+	puntosMaquina = maquina;
+	limiteInferior = 1;
+	limiteSuperior = 2;
+
+	if ((jugador >= 7,5) && (maquina >= 7,5)){
+		resultado = jugador - maquina;
+		if (resultado < 0){
+		resultado = 1;
+		}
+		else  {
+		resultado = 2;
+		}
+	else {
+		if(jugador == maquina){
+		resultado = limiteInferior + rand() % (limiteSuperior+1-limiteInferior);
+		}
+
+
+    }
+  }
+}
+		return resultado;
+
+
 }
