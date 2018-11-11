@@ -29,7 +29,7 @@ int main () {
 	ifstream mazo0;
 	string baraja;
 
-	double puntosAhu, puntosAma, puntosBhu, puntosBma;
+	float puntosAhu, puntosAma, puntosBhu, puntosBma;
 
 	srand (time(NULL));
 	opn = menu ();
@@ -45,6 +45,8 @@ int main () {
                      max = NumeroCartas ();
                 	 puntosAhu = modoA ( mazo0, max);
                 	 puntosAma = modoA ( mazo0, max);
+                	 cout << "El ganador es " ;
+                	 cout << determinaGanador (float puntosAhu float puntosAma);
                   }
 
                   else {
@@ -90,16 +92,16 @@ float modoA ( ifstream& file, int numCartas ){
     float puntos = 0;
         while ( contador <= numCartas ) {
             file >> carta;
-            cout << "la carta es";
-            cout << carta;
+            cout << "la carta es ";
+            cout << carta << endl;
             if (carta <= 7){
                 puntos = carta + puntos;
             }
             else {
                 puntos = puntos + 0.5;
             }
-            cout << "los puntos son";
-            cout << puntos;
+            cout << "los puntos son ";
+            cout << puntos << endl;
             contador++;
         }
     return puntos;
@@ -133,4 +135,4 @@ int determinaGanador (float puntosJugador, float puntosMaquina){
 
 return resultado;
 	}
-}
+
