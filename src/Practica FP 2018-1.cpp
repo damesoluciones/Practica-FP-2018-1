@@ -106,15 +106,23 @@ int determinaGanador (float puntosJugador, float puntosMaquina){
 	const int limiteInferior = 1;
 	const int limiteSuperior = 2;
 
-	if ((puntosJugador < 7,5) && (puntosMaquina < 7,5)&& (puntosJugador > puntosMaquina)){
-		cout << " El ganador es el jugador ";
+	if ((puntosJugador <= 7,5) && (puntosMaquina <= 7,5) && (puntosJugador < puntosMaquina)){
+		resultado = 1;
 	}
-	if else (( puntosJugador == 7,5) || (puntosMaquina ==7,5 )) {
+	else if ((puntosJugador <= 7,5) && (puntosMaquina <= 7,5) && (puntosJugador > puntosMaquina)){
+			resultado = 2;
+		}
+	else if ((puntosJugador == 7,5) && (puntosMaquina == 7,5 )) {
 		resultado = limiteInferior + rand() % (limiteSuperior+1-limiteInferior);
 	}
 
-	if (( puntosJugador > 7,5 ) || (puntosMaquina > 7.5)){
-		cout << " Has perdido ";
+	else if (( puntosJugador > 7,5 ) || (puntosMaquina > 7,5)){
+		if (puntosJugador > 7,5){
+			resultado = 2;
+		}
+		else {
+			resultado = 1;
+		}
 	}
 
 
