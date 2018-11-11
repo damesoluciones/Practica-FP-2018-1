@@ -116,7 +116,9 @@ int determinaGanador (float puntosJugador, float puntosMaquina){
 		resultado = limiteInferior + rand() % (limiteSuperior+1-limiteInferior);
 	}
 
-	if (( puntosJugador > 7,5 ) || (puntosMaquina > 7.5)){}
+	if (( puntosJugador > 7,5 ) || (puntosMaquina > 7.5)){
+		cout << " Has perdido ";
+	}
 
 
 return resultado;
