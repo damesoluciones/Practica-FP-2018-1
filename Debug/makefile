@@ -38,19 +38,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: Practica\ FP\ 2018-1
+all: Practica-FP-2018-1
 
 # Tool invocations
-Practica\ FP\ 2018-1: $(OBJS) $(USER_OBJS)
+Practica-FP-2018-1: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
-	@echo 'Invoking: MacOS X C++ Linker'
-	g++  -o "Practica FP 2018-1" $(OBJS) $(USER_OBJS) $(LIBS)
+	@echo 'Invoking: Cygwin C++ Linker'
+	g++  -o "Practica-FP-2018-1" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(CPP_DEPS)$(C_DEPS) "Practica FP 2018-1"
+	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(CPP_DEPS)$(C_DEPS) Practica-FP-2018-1
 	-@echo ' '
 
 .PHONY: all clean dependents

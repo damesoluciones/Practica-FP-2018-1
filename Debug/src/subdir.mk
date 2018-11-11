@@ -16,7 +16,7 @@ CPP_DEPS += \
 # Each subdirectory must supply rules for building sources it contributes
 src/Practica\ FP\ 2018-1.o: ../src/Practica\ FP\ 2018-1.cpp
 	@echo 'Building file: $<'
-	@echo 'Invoking: GCC C++ Compiler'
+	@echo 'Invoking: Cygwin C++ Compiler'
 	g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/Practica FP 2018-1.d" -MT"src/Practica\ FP\ 2018-1.d" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
