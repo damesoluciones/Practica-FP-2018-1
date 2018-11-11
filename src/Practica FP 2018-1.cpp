@@ -44,8 +44,6 @@ int main () {
                   if ( mazo0.is_open ()) {
                      max = NumeroCartas ();
                 	 puntosA = modoA ( mazo0, max);
-
-
                   }
 
                   else {
@@ -65,8 +63,7 @@ int main () {
 
 
         }
-
-
+      opn = menu ();
     }
 return 0;
 }
