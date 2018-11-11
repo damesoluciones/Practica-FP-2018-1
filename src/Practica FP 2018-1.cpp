@@ -104,32 +104,30 @@ float modoA ( ifstream& file, int numCartas ){
 }
 
 int determinaGanador (float puntosJugador, float puntosMaquina){
+
 	float jugador, maquina;
-	int resultado, limiteInferior, limiteSuperior;
+	int resultado;
+	const int limiteInferior = 1;
+	const int limiteSuperior = 2;
 
-	puntosJugador = jugador;
-	puntosMaquina = maquina;
-	limiteInferior = 1;
-	limiteSuperior = 2;
 
-	if ((jugador >= 7,5) && (maquina >= 7,5)){
-		resultado = jugador - maquina;
+
+	if ((puntosJugador <= 7,5) && (puntosMaquina <= 7,5)){
+		resultado = (puntosJugador - puntosMaquina);
+
 		if (resultado < 0){
 		resultado = 1;
 		}
 		else  {
 		resultado = 2;
 		}
+	}
 	else {
-		if(jugador == maquina){
+
+	if (puntosJugador == puntosMaquina){
 		resultado = limiteInferior + rand() % (limiteSuperior+1-limiteInferior);
-		}
+	}
 
-
-    }
-  }
-}
-		return resultado;
-
-
+return resultado;
+	}
 }
