@@ -25,7 +25,7 @@ int determinaGanador (float puntosJugador, float puntosMaquina);
 
 int main () {
 
-    int opn, max;
+    int opn, max, ganador;
 	ifstream mazo0;
 	string baraja;
 
@@ -45,8 +45,8 @@ int main () {
                      max = NumeroCartas ();
                 	 puntosAhu = modoA ( mazo0, max);
                 	 puntosAma = modoA ( mazo0, max);
-                	 cout << "El ganador es " ;
-                	 cout << determinaGanador (float puntosAhu float puntosAma);
+                	 //cout << "El ganador es " ;
+                	 //cout << determinaGanador (puntosAhu,  puntosAma) << endl;
                   }
 
                   else {
