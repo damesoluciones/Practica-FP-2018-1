@@ -53,6 +53,7 @@ int main () {
             }
                 break;
 
+<<<<<<< HEAD
 	      case 2:
             {
              cout << " Introduzca el mazo con el que desea jugar " << endl;
@@ -68,6 +69,45 @@ int main () {
                 }
                 mazo0.close();
             }
+=======
+    int opn, max, ganador;
+	ifstream mazo0;
+	string baraja;
+
+	float puntosAhu, puntosAma, puntosBhu, puntosBma;
+
+	srand (time(NULL));
+	opn = menu ();
+    while (opn != 0) {
+
+         switch (opn) {
+            case 1:
+                 {
+                  cout << "Introduce el mazo con el que quieres jugar "<<endl;
+                  cin >> baraja;
+                  mazo0.open ( baraja );
+                  if ( mazo0.is_open ()) {
+                     max = NumeroCartas ();
+                	 puntosAhu = modoA ( mazo0, max);
+                	 puntosAma = modoA ( mazo0, max);
+                	 //cout << "El ganador es " ;
+                	 //cout << determinaGanador (puntosAhu,  puntosAma) << endl;
+                  }
+
+                  else {
+                       cout << " El archivo no existe"<<endl;
+
+                       }
+                 }
+
+                 break;
+            case 2: //elige opción B
+                 {
+
+                	 //dato = pedirunidades (dato);
+                     //cout<<"La conversión de "<<dato<<" millas = "<<convertirmiame(dato)<<" Kilómetros";
+                 }
+>>>>>>> f896a88fde02a27986c6336cec148155ae4cffbd
                 break;
 
 	      default:
@@ -119,20 +159,33 @@ float modoA ( ifstream& file, int numCartas ) {
     int carta, suma, contador = 1;
     float puntos = 0;
         while ( contador <= numCartas ) {
+<<<<<<< HEAD
         	file >> carta;
             cout << " La carta es: " << carta;
             if ( carta <= 7 ) {
+=======
+            file >> carta;
+            cout << "la carta es ";
+            cout << carta << endl;
+            if (carta <= 7){
+>>>>>>> f896a88fde02a27986c6336cec148155ae4cffbd
                 puntos = carta + puntos;
             }
             else {
                 puntos = puntos + 0.5;
             }
+<<<<<<< HEAD
             cout << " Tus puntos son: " << puntos;
+=======
+            cout << "los puntos son ";
+            cout << puntos << endl;
+>>>>>>> f896a88fde02a27986c6336cec148155ae4cffbd
             contador++;
         }
     return puntos;
 }
 
+<<<<<<< HEAD
 float modoBhumano ( ifstream& file, int numCartas ) {
    int salida, carta, contador = 1;
    float puntos = 0;
@@ -167,9 +220,41 @@ float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano ) {
 	   cout << " Tus puntos son: " << puntos;
 	   salida = seguir ( puntos, puntosHumano );
 	   contador++;
+=======
+int determinaGanador (float puntosJugador, float puntosMaquina){
+
+	int resultado;
+	const int limiteInferior = 1;
+	const int limiteSuperior = 2;
+
+	if ((puntosJugador <= 7,5) && (puntosMaquina <= 7,5) && (puntosJugador < puntosMaquina)){
+		resultado = 1;
+	}
+	else if ((puntosJugador <= 7,5) && (puntosMaquina <= 7,5) && (puntosJugador > puntosMaquina)){
+			resultado = 2;
+		}
+	else if ((puntosJugador == 7,5) && (puntosMaquina == 7,5 )) {
+		resultado = limiteInferior + rand() % (limiteSuperior+1-limiteInferior);
+	}
+
+	else if (( puntosJugador > 7,5 ) || (puntosMaquina > 7,5)){
+		if (puntosJugador > 7,5){
+			resultado = 2;
+		}
+		else {
+			resultado = 1;
+		}
+>>>>>>> f896a88fde02a27986c6336cec148155ae4cffbd
 	}
 	return puntos;
 }
 
+<<<<<<< HEAD
 int determinaGanador ( float puntosJugador, float puntosMaquina ) {
 }
+=======
+
+return resultado;
+	}
+
+>>>>>>> f896a88fde02a27986c6336cec148155ae4cffbd
