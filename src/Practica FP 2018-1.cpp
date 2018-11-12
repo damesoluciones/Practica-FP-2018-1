@@ -15,62 +15,75 @@
 #include <string>
 using namespace std;
 
-int menu();
+int menu ();
+int menuB ();
 int NumeroCartas ();
-double pasarCartasAPuntos ( int carta );
-float modoA (ifstream& file, int numCartas);
-float modoBhumano (ifstream& file, int numCartas);
-float modoBmaquina (ifstream& file, int numCartas, float puntosHumano);
-int determinaGanador (float puntosJugador, float puntosMaquina);
+float modoA ( ifstream& file, int numCartas );
+float modoBhumano ( ifstream& file, int numCartas );
+float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano );
+int determinaGanador ( float puntosJugador, float puntosMaquina );
+bool seguir ( float maquina, float humano );
 
 int main () {
+   int opn, max;
+   ifstream mazo0;
+   string baraja;
+   float puntosAhu, puntosAma, puntosBhu, puntosBma;
 
-    int opn, max;
-	ifstream mazo0;
-	string baraja;
+   srand ( time( NULL ) );
+   opn = menu ();
+   while ( opn != 0 ) {
 
-	double puntosA, puntosBhu, puntosBma;
+	   switch ( opn ) {
 
-	srand (time(NULL));
-	opn = menu ();
-    while (opn != 0) {
-
-         switch (opn) {
-            case 1:
-                 {
-                  cout << "Introduce el mazo con el que quieres jugar "<<endl;
-                  cin >> baraja;
-                  mazo0.open ( baraja );
-                  if ( mazo0.is_open ()) {
-                     max = NumeroCartas ();
-                	 puntosA = modoA ( mazo0, max);
-                  }
-
-                  else {
-                       cout << " El archivo no existe"<<endl;
-
-                       }
-                 }
-
-                 break;
-            case 2: //elige opci贸n B
-                 {
-
-                	 //dato = pedirunidades (dato);
-                     //cout<<"La conversi贸n de "<<dato<<" millas = "<<convertirmiame(dato)<<" Kil贸metros";
-                 }
+	      case 1:
+            {
+             cout << " Introduzca el mazo con el que desea jugar: " << endl;
+             cin >> baraja;
+             mazo0.open ( baraja );
+                if ( mazo0.is_open () ) {
+                   max = NumeroCartas ();
+                   puntosAhu = modoA ( mazo0, max );
+                   puntosAma = modoA ( mazo0, max );
+                }
+                else {
+                   cout << " El archivo no existe " <<endl;
+                }
+             mazo0.close();
+            }
                 break;
 
+	      case 2:
+            {
+             cout << " Introduzca el mazo con el que desea jugar " << endl;
+             cin >> baraja;
+             mazo0.open ( baraja );
+                if ( mazo0.is_open () ) {
+                	max = NumeroCartas ();
+                	puntosBhu = modoBhumano ( mazo0, max );
+                	puntosBma = modoBmaquina ( mazo0, max, puntosBhu );
+                }
+                else {
+                	cout << " El archivo no existe " << endl;
+                }
+                mazo0.close();
+            }
+                break;
 
+	      default:
+	        {
+
+	        }
         }
       opn = menu ();
-    }
-return 0;
+   }
+
+   return 0;
 }
 
 int menu () {
 	int opcion;
-    cout << " Elija una opci贸n: " << endl;
+    cout << " Elija una opci髇: " << endl;
     cout << " 1 para jugar en modo A " << endl;
     cout << " 2 para jugar en modo B " << endl;
     cout << " 0 para salir " << endl;
@@ -78,46 +91,85 @@ int menu () {
     return opcion;
 }
 
-int NumeroCartas(){
+int menuB () {
+   int opcion;
+   cout << " Elija una opci髇: " << endl;
+   cout << " 1 para seguir robando cartas " << endl;
+   cout << " 0 para dejar de robar cartas " << endl;
+   cin >> opcion;
+   return opcion;
+}
+
+int NumeroCartas () {
     int cartas;
     cartas = 3 + rand() % (5+1-3);
     return cartas;
 }
 
-float modoA ( ifstream& file, int numCartas ){
+bool seguir ( float maquina, float humano ) {
+   bool decision = false;
+
+   if ( ( maquina == 7.5 ) || ( maquina > humano ) ) {
+      decision = true;
+   }
+   return decision;
+}
+
+float modoA ( ifstream& file, int numCartas ) {
     int carta, suma, contador = 1;
     float puntos = 0;
         while ( contador <= numCartas ) {
-            file >> carta;
-            if (carta <= 7){
+        	file >> carta;
+            cout << " La carta es: " << carta;
+            if ( carta <= 7 ) {
                 puntos = carta + puntos;
             }
             else {
                 puntos = puntos + 0.5;
             }
+            cout << " Tus puntos son: " << puntos;
             contador++;
         }
     return puntos;
 }
 
-int determinaGanador (float puntosJugador, float puntosMaquina){
+float modoBhumano ( ifstream& file, int numCartas ) {
+   int salida, carta, contador = 1;
+   float puntos = 0;
+   while ( ( contador <= numCartas ) || ( salida == 0 ) ) {
+      file >> carta;
+      cout << " La carta es: " << carta;
+         if ( carta <= 7 ) {
+            puntos = carta + puntos;
+         }
+         else {
+            puntos = puntos + 0.5;
+         }
+      cout << " Tus puntos son: " << puntos;
+      salida = menuB ();
+      contador++;
+   }
+   return puntos;
+}
 
-	int resultado;
-	const int limiteInferior = 1;
-	const int limiteSuperior = 2;
-
-	if ((puntosJugador < 7,5) && (puntosMaquina < 7,5)&& (puntosJugador > puntosMaquina)){
-		cout << " El ganador es el jugador ";
+float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano ) {
+	int salida, carta, contador = 1;
+	float puntos = 0;
+	while ( ( contador <= numCartas ) || ( salida == 1 ) ) {
+	   file >> carta;
+	   cout << " La carta es: " << carta;
+	      if ( carta <= 7 ) {
+	         puntos = carta + puntos;
+	      }
+	      else {
+	         puntos = puntos + 0.5;
+	      }
+	   cout << " Tus puntos son: " << puntos;
+	   salida = seguir ( puntos, puntosHumano );
+	   contador++;
 	}
-	if else (( puntosJugador == 7,5) || (puntosMaquina ==7,5 )) {
-		resultado = limiteInferior + rand() % (limiteSuperior+1-limiteInferior);
-	}
+	return puntos;
+}
 
-	if (( puntosJugador > 7,5 ) || (puntosMaquina > 7.5)){
-		cout << " Has perdido ";
-	}
-
-
-return resultado;
-	}
+int determinaGanador ( float puntosJugador, float puntosMaquina ) {
 }
