@@ -53,10 +53,10 @@ int main () {
             }
                 break;
 
-<<<<<<< Updated upstream
-=======
+//<<<<<<< Updated upstream
+//=======
 //<<<<<<< HEAD
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 	      case 2:
             {
              cout << " Introduzca el mazo con el que desea jugar " << endl;
@@ -72,8 +72,8 @@ int main () {
                 }
                 mazo0.close();
             }
-<<<<<<< Updated upstream
-=======
+//<<<<<<< Updated upstream
+//=======
 //=======
     int opn, max, ganador;
 	ifstream mazo0;
@@ -113,7 +113,7 @@ int main () {
                      //cout<<"La conversión de "<<dato<<" millas = "<<convertirmiame(dato)<<" Kilómetros";
                  }
 //>>>>>>> f896a88fde02a27986c6336cec148155ae4cffbd
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
                 break;
 
 	      default:
@@ -165,11 +165,11 @@ float modoA ( ifstream& file, int numCartas ) {
     int carta, suma, contador = 1;
     float puntos = 0;
         while ( contador <= numCartas ) {
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
         	file >> carta;
             cout << " La carta es: " << carta;
             if ( carta <= 7 ) {
-=======
+//=======
 //<<<<<<< HEAD
         	file >> carta;
             cout << " La carta es: " << carta;
@@ -180,31 +180,31 @@ float modoA ( ifstream& file, int numCartas ) {
             cout << carta << endl;
             if (carta <= 7){
 //>>>>>>> f896a88fde02a27986c6336cec148155ae4cffbd
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
                 puntos = carta + puntos;
             }
             else {
                 puntos = puntos + 0.5;
             }
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
             cout << " Tus puntos son: " << puntos;
-=======
+//=======
 //<<<<<<< HEAD
             cout << " Tus puntos son: " << puntos;
 //=======
             cout << "los puntos son ";
             cout << puntos << endl;
 //>>>>>>> f896a88fde02a27986c6336cec148155ae4cffbd
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
             contador++;
         }
     return puntos;
 }
 
-<<<<<<< Updated upstream
-=======
+//<<<<<<< Updated upstream
+//=======
 //<<<<<<< HEAD
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 float modoBhumano ( ifstream& file, int numCartas ) {
    int salida, carta, contador = 1;
    float puntos = 0;
@@ -239,8 +239,8 @@ float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano ) {
 	   cout << " Tus puntos son: " << puntos;
 	   salida = seguir ( puntos, puntosHumano );
 	   contador++;
-<<<<<<< Updated upstream
-=======
+//<<<<<<< Updated upstream
+//=======
 //=======
 int determinaGanador (float puntosJugador, float puntosMaquina){
 
@@ -266,15 +266,15 @@ int determinaGanador (float puntosJugador, float puntosMaquina){
 			resultado = 1;
 		}
 //>>>>>>> f896a88fde02a27986c6336cec148155ae4cffbd
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 	}
 	return puntos;
 }
 
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
 int determinaGanador ( float puntosJugador, float puntosMaquina ) {
 }
-=======
+//=======
 //<<<<<<< HEAD
 int determinaGanador ( float puntosJugador, float puntosMaquina ) {
 }
@@ -284,4 +284,4 @@ return resultado;
 	}
 
 //>>>>>>> f896a88fde02a27986c6336cec148155ae4cffbd
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
