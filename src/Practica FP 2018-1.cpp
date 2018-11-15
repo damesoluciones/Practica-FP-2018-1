@@ -30,6 +30,8 @@ int main () {
    string baraja;
    float puntosAhu, puntosAma, puntosBhu, puntosBma;
 
+   cout << "Hola" << endl;
+
    srand ( time( NULL ) );
    opn = menu ();
    while ( opn != 0 ) {
