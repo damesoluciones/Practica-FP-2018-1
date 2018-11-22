@@ -69,48 +69,6 @@ int main () {
                 }
                 mazo0.close();
             }
-//<<<<<<< Updated upstream
-//=======
-//=======
-    int opn, max, ganador;
-	ifstream mazo0;
-	string baraja;
-
-	float puntosAhu, puntosAma, puntosBhu, puntosBma;
-
-	srand (time(NULL));
-	opn = menu ();
-    while (opn != 0) {
-
-         switch (opn) {
-            case 1:
-                 {
-                  cout << "Introduce el mazo con el que quieres jugar "<<endl;
-                  cin >> baraja;
-                  mazo0.open ( baraja );
-                  if ( mazo0.is_open ()) {
-                     max = NumeroCartas ();
-                	 puntosAhu = modoA ( mazo0, max);
-                	 puntosAma = modoA ( mazo0, max);
-                	 //cout << "El ganador es " ;
-                	 //cout << determinaGanador (puntosAhu,  puntosAma) << endl;
-                  }
-
-                  else {
-                       cout << " El archivo no existe"<<endl;
-
-                       }
-                 }
-
-                 break;
-            case 2: //elige opciÃ³n B
-                 {
-
-                	 //dato = pedirunidades (dato);
-                     //cout<<"La conversiÃ³n de "<<dato<<" millas = "<<convertirmiame(dato)<<" KilÃ³metros";
-                 }
-//>>>>>>> f896a88fde02a27986c6336cec148155ae4cffbd
-//>>>>>>> Stashed changes
                 break;
 
 	      default:
@@ -126,7 +84,7 @@ int main () {
 
 int menu () {
 	int opcion;
-    cout << " Elija una opciï¿½n: " << endl;
+    cout << " Elija una opción: " << endl;
     cout << " 1 para jugar en modo A " << endl;
     cout << " 2 para jugar en modo B " << endl;
     cout << " 0 para salir " << endl;
@@ -136,7 +94,7 @@ int menu () {
 
 int menuB () {
    int opcion;
-   cout << " Elija una opciï¿½n: " << endl;
+   cout << " Elija una opción: " << endl;
    cout << " 1 para seguir robando cartas " << endl;
    cout << " 0 para dejar de robar cartas " << endl;
    cin >> opcion;
