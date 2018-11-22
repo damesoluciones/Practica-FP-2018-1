@@ -25,48 +25,45 @@ int determinaGanador ( float puntosJugador, float puntosMaquina );
 bool seguir ( float maquina, float humano );
 
 int main () {
-   int opn, max;
-   ifstream mazo0;
-   string baraja;
-   float puntosAhu, puntosAma, puntosBhu, puntosBma;
+	int opn, max;
+	ifstream mazo0;
+	string baraja;
+	float puntosAhu, puntosAma, puntosBhu, puntosBma, resultado;
 
-   srand ( time( NULL ) );
-   opn = menu ();
-   while ( opn != 0 ) {
-
-	   switch ( opn ) {
-
-	      case 1:
-            {
-             cout << " Introduzca el mazo con el que desea jugar: " << endl;
-             cin >> baraja;
-             mazo0.open ( baraja );
-                if ( mazo0.is_open () ) {
-                   max = NumeroCartas ();
-                   puntosAhu = modoA ( mazo0, max );
-                   puntosAma = modoA ( mazo0, max );
-
-                }
-                else {
-                   cout << " El archivo no existe " <<endl;
-                }
-             mazo0.close();
+	srand ( time( NULL ) );
+	opn = menu ();
+	while ( opn != 0 ) {
+		switch ( opn ) {
+		case 1:
+		{
+			cout << " Introduzca el mazo con el que desea jugar: " << endl;
+			cin >> baraja;
+			mazo0.open ( baraja );
+			if ( mazo0.is_open () ) {
+				max = NumeroCartas ();
+				puntosAhu = modoA ( mazo0, max );
+				puntosAma = modoA ( mazo0, max );
+				resultado = determinaGanador ( puntosAhu, puntosAma );
+			}
+			else {
+				cout << " El archivo no existe " <<endl;
+			}
+			mazo0.close();
             }
-                break;
-
-	      case 2:
-            {
-             cout << " Introduzca el mazo con el que desea jugar " << endl;
-             cin >> baraja;
-             mazo0.open ( baraja );
-                if ( mazo0.is_open () ) {
-                	max = NumeroCartas ();
-                	puntosBhu = modoBhumano ( mazo0, max );
-                	puntosBma = modoBmaquina ( mazo0, max, puntosBhu );
-                }
-                else {
-                	cout << " El archivo no existe " << endl;
-                }
+		break;
+		case 2:
+		{
+			cout << " Introduzca el mazo con el que desea jugar " << endl;
+			cin >> baraja;
+			mazo0.open ( baraja );
+			if ( mazo0.is_open () ) {
+				max = NumeroCartas ();
+				puntosBhu = modoBhumano ( mazo0, max );
+				puntosBma = modoBmaquina ( mazo0, max, puntosBhu );
+			}
+			else {
+				cout << " El archivo no existe " << endl;
+			}
                 mazo0.close();
             }
                 break;
@@ -117,7 +114,7 @@ bool seguir ( float maquina, float humano ) {
 }
 
 float modoA ( ifstream& file, int numCartas ) {
-    int carta, suma, contador = 1;
+    int carta, contador = 1;
     float puntos = 0;
         while ( contador <= numCartas ) {
         	file >> carta;
@@ -179,20 +176,16 @@ int determinaGanador (float puntosJugador, float puntosMaquina) {
 	if ((puntosJugador <= 7,5) && (puntosMaquina <= 7,5) && (puntosJugador < puntosMaquina)) {
 		resultado = 1;
 	}
-		else if ((puntosJugador <= 7,5) && (puntosMaquina <= 7,5) && (puntosJugador > puntosMaquina)){
-				resultado = 2;
-			}
-		else if ((puntosJugador == 7,5) && (puntosMaquina == 7,5 )) {
-			resultado = limiteInferior + rand() % (limiteSuperior+1-limiteInferior);
+	else if ((puntosJugador <= 7,5) && (puntosMaquina <= 7,5) && (puntosJugador > puntosMaquina)){
+		resultado = 2;
+	}
+	else if ((puntosJugador == 7,5) && (puntosMaquina == 7,5 )) {
+		resultado = limiteInferior + rand() % (limiteSuperior+1-limiteInferior);
+	}
+	else {
+		resultado = 3
 		}
 
-		else if (( puntosJugador > 7,5 ) || (puntosMaquina > 7,5)){
-			if (puntosJugador > 7,5){
-				resultado = 2;
-			}
-			else {
-				resultado = 1;
-			}
-		}
-			return resultado;
+	}
+	return resultado;
 }
