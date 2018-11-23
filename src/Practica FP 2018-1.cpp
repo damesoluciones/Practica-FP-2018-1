@@ -78,87 +78,86 @@ int main () {
 			}
                 mazo0.close();
             }
-                break;
+		break;
 
-	      default:
-	        {
+		default:
+		{
 
-	        }
-        }
-      opn = menu ();
-   }
-
-   return 0;
+		}
+		}
+		opn = menu ();
+	}
+	return 0;
 }
 
 int menu () {
 	int opcion;
-    cout << " Elija una opción: " << endl;
-    cout << " 1 para jugar en modo A " << endl;
-    cout << " 2 para jugar en modo B " << endl;
-    cout << " 0 para salir " << endl;
-    cin >> opcion;
-    return opcion;
+	cout << " Elija una opción: " << endl;
+	cout << " 1 para jugar en modo A " << endl;
+	cout << " 2 para jugar en modo B " << endl;
+	cout << " 0 para salir " << endl;
+	cin >> opcion;
+	return opcion;
 }
 
 int menuB () {
-   int opcion;
-   cout << " Elija una opción: " << endl;
-   cout << " 1 para seguir robando cartas " << endl;
-   cout << " 0 para dejar de robar cartas " << endl;
-   cin >> opcion;
-   return opcion;
+	int opcion;
+	cout << " Elija una opción: " << endl;
+	cout << " 1 para seguir robando cartas " << endl;
+	cout << " 0 para dejar de robar cartas " << endl;
+	cin >> opcion;
+	return opcion;
 }
 
 int NumeroCartas () {
-    int cartas;
-    cartas = 3 + rand() % (5+1-3);
-    return cartas;
+	int cartas;
+	cartas = 3 + rand() % (5+1-3);
+	return cartas;
 }
 
 bool seguir ( float maquina, float humano ) {
-   bool decision = false;
+	bool decision = false;
 
-   if ( ( maquina == 7.5 ) || ( maquina > humano ) ) {
-      decision = true;
-   }
-   return decision;
+	if ( ( maquina == 7.5 ) || ( maquina > humano ) ) {
+		decision = true;
+	}
+	return decision;
 }
 
 float modoA ( ifstream& file, int numCartas ) {
-    int carta, contador = 1;
-    float puntos = 0;
-        while ( contador <= numCartas ) {
-        	file >> carta;
-            cout << " La carta es: " << carta;
-            if ( carta <= 7 ) {
-                puntos = carta + puntos;
-            }
-            else {
-                puntos = puntos + 0.5;
-            }
-            cout << " Tus puntos son: " << puntos;
-            contador++;
-        }
-    return puntos;
+	int carta, contador = 1;
+	float puntos = 0;
+	while ( contador <= numCartas ) {
+		file >> carta;
+		cout << " La carta es: " << carta;
+		if ( carta <= 7 ) {
+			puntos = carta + puntos;
+		}
+		else {
+			puntos = puntos + 0.5;
+		}
+		cout << " Tus puntos son: " << puntos;
+		contador++;
+	}
+	return puntos;
 }
 
 float modoBhumano ( ifstream& file, int numCartas ) {
-   int salida, carta, contador = 1;
-   float puntos = 0;
-   while ( ( contador <= numCartas ) || ( salida == 0 ) ) {
-      file >> carta;
-      cout << " La carta es: " << carta;
-         if ( carta <= 7 ) {
-            puntos = carta + puntos;
-         }
-         else {
-            puntos = puntos + 0.5;
-         }
-      cout << " Tus puntos son: " << puntos;
-      salida = menuB ();
-      contador++;
-   }
+	int salida, carta, contador = 1;
+	float puntos = 0;
+	while ( ( contador <= numCartas ) || ( salida == 1 ) ) {
+	file >> carta;
+	cout << " La carta es: " << carta;
+	if ( carta <= 7 ) {
+		puntos = carta + puntos;
+	}
+	else {
+		puntos = puntos + 0.5;
+	}
+	cout << " Tus puntos son: " << puntos;
+	salida = menuB ();
+	contador++;
+	}
    return puntos;
 }
 
@@ -166,17 +165,17 @@ float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano ) {
 	int salida, carta, contador = 1;
 	float puntos = 0;
 	while ( ( contador <= numCartas ) || ( salida == 1 ) ) {
-	   file >> carta;
-	   cout << " La carta es: " << carta;
-	      if ( carta <= 7 ) {
-	         puntos = carta + puntos;
-	      }
-	      else {
-	         puntos = puntos + 0.5;
-	      }
-	   cout << " Tus puntos son: " << puntos;
-	   salida = seguir ( puntos, puntosHumano );
-	   contador++;
+		file >> carta;
+		cout << " La carta es: " << carta;
+		if ( carta <= 7 ) {
+			puntos = carta + puntos;
+		}
+		else {
+			puntos = puntos + 0.5;
+		}
+		cout << " Tus puntos son: " << puntos;
+		salida = seguir ( puntos, puntosHumano );
+		contador++;
 	}
 	return puntos;
 }
