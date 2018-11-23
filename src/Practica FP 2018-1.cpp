@@ -42,8 +42,20 @@ int main () {
 			if ( mazo0.is_open () ) {
 				max = NumeroCartas ();
 				puntosAhu = modoA ( mazo0, max );
-				puntosAma = modoA ( mazo0, max );
-				resultado = determinaGanador ( puntosAhu, puntosAma );
+				resultado  = determinaGanador ( puntosAhu, 0 );
+				if ( resultado == 1 ){
+					puntosAma = modoA ( mazo0, max );
+					resultado = determinaGanador ( puntosAhu, puntosAma );
+					if ( resultado == 1 ){
+						cout << " Has ganado " << endl;
+					}
+					else {
+						cout << " Has perdido " << endl;
+					}
+				}
+				else {
+					cout << " Has perdido " << endl;
+				}
 			}
 			else {
 				cout << " El archivo no existe " <<endl;
