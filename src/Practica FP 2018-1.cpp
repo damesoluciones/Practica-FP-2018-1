@@ -181,7 +181,7 @@ float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano ) {
 	return puntos;
 }
 
-int determinaGanador (float puntosJugador, float puntosMaquina) {
+int determinaGanador ( float puntosJugador, float puntosMaquina ) {
 	int resultado;
 	const int limiteInferior = 1;
 	const int limiteSuperior = 2;
@@ -196,8 +196,6 @@ int determinaGanador (float puntosJugador, float puntosMaquina) {
 	}
 	else {
 		resultado = 3
-		}
-
 	}
 	return resultado;
 }
