@@ -92,7 +92,7 @@ int main () {
 
 int menu () {
 	int opcion;
-	cout << " Elija una opción: " << endl;
+	cout << " Elija una opciï¿½n: " << endl;
 	cout << " 1 para jugar en modo A " << endl;
 	cout << " 2 para jugar en modo B " << endl;
 	cout << " 0 para salir " << endl;
@@ -102,7 +102,7 @@ int menu () {
 
 int menuB () {
 	int opcion;
-	cout << " Elija una opción: " << endl;
+	cout << " Elija una opciï¿½n: " << endl;
 	cout << " 1 para seguir robando cartas " << endl;
 	cout << " 0 para dejar de robar cartas " << endl;
 	cin >> opcion;
@@ -194,7 +194,15 @@ int determinaGanador ( float puntosJugador, float puntosMaquina ) {
 		resultado = limiteInferior + rand() % (limiteSuperior+1-limiteInferior);
 	}
 	else {
-		resultado = 3
-	}
+		if ( puntosJugador > 7,5 ){
+			resultado = 2;
+		}
+		if ( puntosMaquina > 7,5 ){
+			resultado = 1;
+		}
+
+	     }
+
+
 	return resultado;
 }
