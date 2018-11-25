@@ -16,8 +16,7 @@
 using namespace std;
 
 int menu ();
-int menuB ();
-int NumeroCartas ();
+int menuB ();;
 float modoA ( ifstream& file, int numCartas );
 float modoBhumano ( ifstream& file, int numCartas );
 float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano );
@@ -40,7 +39,7 @@ int main () {
 			cin >> baraja;
 			mazo0.open ( baraja );
 			if ( mazo0.is_open () ) {
-				max = NumeroCartas ();
+				max = 3 + rand() % (5+1-3);
 				puntosAhu = modoA ( mazo0, max );
 				resultado  = determinaGanador ( puntosAhu, 0 );
 				if ( resultado == 1 ){
@@ -69,9 +68,10 @@ int main () {
 			cin >> baraja;
 			mazo0.open ( baraja );
 			if ( mazo0.is_open () ) {
-				max = NumeroCartas ();
+				max = 3 + rand() % (5+1-3);
 				puntosBhu = modoBhumano ( mazo0, max );
 				puntosBma = modoBmaquina ( mazo0, max, puntosBhu );
+				resultado = determinaGanador ( puntosBhu, puntosBma );
 			}
 			else {
 				cout << " El archivo no existe " << endl;
@@ -92,7 +92,7 @@ int main () {
 
 int menu () {
 	int opcion;
-	cout << " Elija una opci�n: " << endl;
+	cout << " Elija una opcion: " << endl;
 	cout << " 1 para jugar en modo A " << endl;
 	cout << " 2 para jugar en modo B " << endl;
 	cout << " 0 para salir " << endl;
@@ -102,17 +102,11 @@ int menu () {
 
 int menuB () {
 	int opcion;
-	cout << " Elija una opci�n: " << endl;
+	cout << " Elija una opcion: " << endl;
 	cout << " 1 para seguir robando cartas " << endl;
 	cout << " 0 para dejar de robar cartas " << endl;
 	cin >> opcion;
 	return opcion;
-}
-
-int NumeroCartas () {
-	int cartas;
-	cartas = 3 + rand() % (5+1-3);
-	return cartas;
 }
 
 bool seguir ( float maquina, float humano ) {
@@ -129,14 +123,14 @@ float modoA ( ifstream& file, int numCartas ) {
 	float puntos = 0;
 	while ( contador <= numCartas ) {
 		file >> carta;
-		cout << " La carta es: " << carta;
+		cout << " La carta es: " << carta << endl;
 		if ( carta <= 7 ) {
 			puntos = carta + puntos;
 		}
 		else {
 			puntos = puntos + 0.5;
 		}
-		cout << " Tus puntos son: " << puntos;
+		cout << " Tus puntos son: " << puntos << endl;
 		contador++;
 	}
 	return puntos;
@@ -184,25 +178,30 @@ int determinaGanador ( float puntosJugador, float puntosMaquina ) {
 	int resultado;
 	const int limiteInferior = 1;
 	const int limiteSuperior = 2;
-	if ((puntosJugador <= 7,5) && (puntosMaquina <= 7,5) && (puntosJugador < puntosMaquina)) {
-		resultado = 1;
-	}
-	else if ((puntosJugador <= 7,5) && (puntosMaquina <= 7,5) && (puntosJugador > puntosMaquina)){
-		resultado = 2;
-	}
-	else if ((puntosJugador == 7,5) && (puntosMaquina == 7,5 )) {
-		resultado = limiteInferior + rand() % (limiteSuperior+1-limiteInferior);
-	}
-	else {
-		if ( puntosJugador > 7,5 ){
-			resultado = 2;
-		}
-		if ( puntosMaquina > 7,5 ){
+	if ( puntosJugador > puntosMaquina ) {
+		if ( puntosJugador < 7.5 ) {
 			resultado = 1;
 		}
-
-	     }
-
-
+		else if (( puntosJugador > 7.5 ) && ( puntosMaquina < 7.5 )) {
+			resultado = 2;
+		}
+		else {
+			resultado = 2;
+		}
+	}
+	else if ( puntosMaquina > puntosJugador ) {
+		if ( puntosMaquina < 7.5 ) {
+			resultado = 2;
+		}
+		else if (( puntosMaquina > 7.5 ) && ( puntosJugador < 7.5 )) {
+			resultado = 1;
+		}
+		else {
+			resultado = 1;
+		}
+	}
+	else {
+		resultado = limiteInferior + rand() % (limiteSuperior+1-limiteInferior);
+	}
 	return resultado;
 }
