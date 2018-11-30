@@ -41,3 +41,13 @@
 .settings/language.settings.xml
 
 *.xml
+/Debug/
+/Release/
+
+Debug/Practica-FP-2018-1.exe
+
+Debug/makefile
+
+*.mk
+
+*.d

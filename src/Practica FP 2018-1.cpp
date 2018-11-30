@@ -6,7 +6,6 @@
 // Description : Práctica FP 2018-1
 //============================================================================
 
-
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -137,18 +136,18 @@ float modoA ( ifstream& file, int numCartas ) {
 }
 
 float modoBhumano ( ifstream& file, int numCartas ) {
-	int salida, carta, contador = 1;
+	int salida = 1, carta, contador = 1;
 	float puntos = 0;
-	while ( ( contador <= numCartas ) || ( salida == 1 ) ) {
+	while ( ( contador <= numCartas ) && ( salida == 1 ) ) {
 	file >> carta;
-	cout << " La carta es: " << carta;
+	cout << " La carta es: " << carta << endl;
 	if ( carta <= 7 ) {
 		puntos = carta + puntos;
 	}
 	else {
 		puntos = puntos + 0.5;
 	}
-	cout << " Tus puntos son: " << puntos;
+	cout << " Tus puntos son: " << puntos << endl;
 	salida = menuB ();
 	contador++;
 	}
@@ -156,18 +155,18 @@ float modoBhumano ( ifstream& file, int numCartas ) {
 }
 
 float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano ) {
-	int salida, carta, contador = 1;
+	int salida = 1, carta, contador = 1;
 	float puntos = 0;
-	while ( ( contador <= numCartas ) || ( salida == 1 ) ) {
+	while ( ( contador <= numCartas ) && ( salida == 1 ) ) {
 		file >> carta;
-		cout << " La carta es: " << carta;
+		cout << " La carta es: " << carta << endl;
 		if ( carta <= 7 ) {
 			puntos = carta + puntos;
 		}
 		else {
 			puntos = puntos + 0.5;
 		}
-		cout << " Tus puntos son: " << puntos;
+		cout << " Tus puntos son: " << puntos << endl;
 		salida = seguir ( puntos, puntosHumano );
 		contador++;
 	}
