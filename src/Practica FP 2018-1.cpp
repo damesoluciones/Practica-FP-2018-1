@@ -25,7 +25,6 @@ float modoA ( ifstream& file, int numCartas );
 float modoBhumano ( ifstream& file, int numCartas );
 float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano );
 int determinaGanador ( float puntosJugador, float puntosMaquina );
-bool seguir ( float maquina, float humano );
 void modoChumano (ifstream& file, tCartasPorAparecer cartas, float& puntos);
 void modoCmaquina (ifstream& file, tCartasPorAparecer cartas, float puntosHumano, float& puntos);
 bool esProbablePasarse (float puntosMaquina, const tCartasPorAparecer cartas);
@@ -161,15 +160,6 @@ int menuB () {
 	return opcion;
 }
 
-bool seguir ( float maquina, float humano ) {
-	bool decision = false;
-
-	if ( ( maquina == 7.5 ) || ( maquina > humano ) ) {
-		decision = true;
-	}
-	return decision;
-}
-
 float modoA ( ifstream& file, int numCartas ) {
 	int carta, contador = 1;
 	float puntos = 0;
@@ -208,9 +198,9 @@ float modoBhumano ( ifstream& file, int numCartas ) {
 }
 
 float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano ) {
-	int salida = 1, carta, contador = 1;
+	int carta, contador = 1;
 	float puntos = 0;
-	while ( ( contador <= numCartas ) && ( salida == 1 ) ) {
+	while ( ( contador <= numCartas ) && (  ) ) {
 		file >> carta;
 		cout << " La carta es: " << carta << endl;
 		if ( carta <= 7 ) {
@@ -220,7 +210,7 @@ float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano ) {
 			puntos = puntos + 0.5;
 		}
 		cout << " Tus puntos son: " << puntos << endl;
-		salida = seguir ( puntos, puntosHumano );
+
 		contador++;
 	}
 	return puntos;
