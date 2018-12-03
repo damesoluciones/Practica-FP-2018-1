@@ -102,7 +102,7 @@ int main () {
 		case 3:
 		{
 
-			sigcarta [0] = 12; //llenamos el array de cartas
+			sigcarta [0] = 12; //inicializamos array
 				for ( int i = 1; i < num; i++ ) {
 					sigcarta [i] = 4;
 				}
