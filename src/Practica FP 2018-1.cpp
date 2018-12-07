@@ -14,10 +14,9 @@
 #include <string>
 using namespace std;
 
-const int LimiteInferior = 3, LimiteSuperior = 5,  num = 8;
+const int LimiteInferior = 3, LimiteSuperior = 5,  num = 8, Max = 40, ganaHumano = 1, ganaMaquina = 2;
 
 typedef int tCartasPorAparecer [num];
-
 
 int menu ();
 int menuB ();;
@@ -29,11 +28,8 @@ void modoChumano (ifstream& file, tCartasPorAparecer cartas, float& puntos);
 void modoCmaquina (ifstream& file, tCartasPorAparecer cartas, float puntosHumano, float& puntos);
 bool esProbablePasarse (float puntosMaquina, const tCartasPorAparecer cartas);
 
-
-
-
 int main () {
-	int opn, max;
+	int opn, max, numpartidas;
 	tCartasPorAparecer sigcarta;
 	ifstream mazo0;
 	string baraja;
@@ -51,11 +47,11 @@ int main () {
 			if ( mazo0.is_open () ) {
 				max = LimiteInferior + rand() % (LimiteSuperior+1-LimiteInferior);
 				puntosAhu = modoA ( mazo0, max );
-				resultado  = determinaGanador ( puntosAhu, 0 ); //¿Por qué enviamos 0?
-				if ( resultado == 1 ){
+				if ( puntosAhu <= 7,5 ){
 					puntosAma = modoA ( mazo0, max );
 					resultado = determinaGanador ( puntosAhu, puntosAma );
-					if ( resultado == 1 ){
+					// Muestra al ganador
+					if ( resultado == ganaHumano ) {
 						cout << " Has ganado " << endl;
 					}
 					else {
@@ -72,6 +68,7 @@ int main () {
 			mazo0.close();
             }
 		break;
+
 		case 2:
 		{
 			cout << " Introduzca el mazo con el que desea jugar " << endl;
@@ -80,32 +77,34 @@ int main () {
 			if ( mazo0.is_open () ) {
 				max = LimiteInferior + rand() % (LimiteSuperior+1-LimiteInferior);
 				puntosBhu = modoBhumano ( mazo0, max );
-				puntosBma = modoBmaquina ( mazo0, max, puntosBhu );
-				resultado = determinaGanador ( puntosBhu, puntosBma );
-				if ( resultado == 1 ){
-					cout << " Has ganado " << endl;
+				if ( puntosBhu <= 7.5 ) {
+					puntosBma = modoBmaquina ( mazo0, max, puntosBhu );
+					resultado = determinaGanador ( puntosBhu, puntosBma );
+					if ( resultado == ganaHumano ) {
+						cout << " Has ganado " << endl;
+					}
+					else {
+						cout << " Has perdido " << endl;
+					}
 				}
 				else {
 					cout << " Has perdido " << endl;
 				}
-
 		}
 		else {
 			cout << " El archivo no existe " <<endl;
 		}
 		mazo0.close();
         }
-	break;
-
+		break;
 
 		case 3:
 		{
 
-			sigcarta [0] = 12; //inicializamos array
-				for ( int i = 1; i < num; i++ ) {
-					sigcarta [i] = 4;
-				}
-
+			sigcarta [0] = 12;
+			for ( int i = 1; i < num; i++ ) {
+				sigcarta [i] = 4;
+			}
 			cout << " Introduzca el mazo con el que desea jugar " << endl;
 			cin >> baraja;
 			mazo0.open ( baraja );
@@ -126,16 +125,15 @@ int main () {
 		}
 		mazo0.close();
         }
-	break;
-
+		break;
 
 		default:
 		{
-		cout << "La opción es incorrecta" << endl;
+		cout << "La opcion es incorrecta" << endl;
 		}
 		}
 		opn = menu ();
-
+		numpartidas++;
 		}
 	return 0;
 }
@@ -146,6 +144,7 @@ int menu () {
 	cout << " 1 para jugar en modo A " << endl;
 	cout << " 2 para jugar en modo B " << endl;
 	cout << " 3 para jugar en modo C " << endl;
+	cout << " 4 para jugar en modo D " << endl;
 	cout << " 0 para salir " << endl;
 	cin >> opcion;
 	return opcion;
@@ -192,15 +191,14 @@ float modoBhumano ( ifstream& file, int numCartas ) {
 	}
 	cout << " Tus puntos son: " << puntos << endl;
 	contador++;
-	salida = menuB ();
 	}
    return puntos;
 }
 
 float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano ) {
-	int carta, contador = 1;
+	int carta, contador = 1, salir = 1;
 	float puntos = 0;
-	while ( ( contador <= numCartas ) && (  ) ) {
+	while ( ( contador <= numCartas ) && ( salir == 1 ) ) {
 		file >> carta;
 		cout << " La carta es: " << carta << endl;
 		if ( carta <= 7 ) {
@@ -210,7 +208,9 @@ float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano ) {
 			puntos = puntos + 0.5;
 		}
 		cout << " Tus puntos son: " << puntos << endl;
-
+		cout << " 0 para salir " << endl;
+		cout  << " 1 para seguir robando " << endl;
+		cin >> salir;
 		contador++;
 	}
 	return puntos;
@@ -302,32 +302,20 @@ bool esProbablePasarse (float puntosMaquina, const tCartasPorAparecer cartas){
 
 int determinaGanador ( float puntosJugador, float puntosMaquina ) {
 	int resultado;
-	const int RandomGanaHumano = 1;
-	const int RandomGanaMaquina = 2;
+	// Determina el ganador
 	if ( puntosJugador > puntosMaquina ) {
-		if ( puntosJugador < 7.5 ) {
-			resultado = 1;
-		}
-		else if (( puntosJugador > 7.5 ) && ( puntosMaquina < 7.5 )) {
-			resultado = 2;
-		}
-		else {
-			resultado = 2;
-		}
+		resultado = ganaHumano;
 	}
 	else if ( puntosMaquina > puntosJugador ) {
-		if ( puntosMaquina < 7.5 ) {
-			resultado = 2;
-		}
-		else if (( puntosMaquina > 7.5 ) && ( puntosJugador < 7.5 )) {
-			resultado = 1;
+		if ( puntosMaquina > 7,5 ) {
+			resultado = ganaHumano;
 		}
 		else {
-			resultado = 1;
+			resultado = ganaMaquina;
 		}
 	}
 	else {
-		resultado = RandomGanaHumano + rand() % (RandomGanaMaquina+1-RandomGanaHumano);
+		resultado = ganaHumano + rand() % ( ganaMaquina+1-ganaHumano );
 	}
 	return resultado;
 }
