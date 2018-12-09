@@ -40,11 +40,13 @@ void modoDmaquina( tConjuntoCartas & mazo, tCartasPorAparecer cartas, float punt
 
 
 int main () {
-	int opn, max, numpartidas;
-	tCartasPorAparecer sigcarta;
+	tCartasPorAparecer sigcarta, resto;
+	tConjuntoCartas mazo, cartasH, cartasM;
 	ifstream mazo0;
-	string baraja;
-	float puntosAhu, puntosAma, puntosBhu, puntosBma, puntosChumano = 0, puntosCmaquina = 0, resultado;
+	ofstream fichero;
+	string baraja, ficheroSalida, ganador;
+	int opn, max, numpartidas = 0;
+	float puntosAhu, puntosAma, puntosBhu, puntosBma, puntosChumano = 0, puntosCmaquina = 0, resultado, puntosDhu, puntosDma;
 
 	srand ( time( NULL ) );
 	opn = menu ();
@@ -129,13 +131,60 @@ int main () {
 				else {
 					cout << " Has perdido " << endl;
 				}
-
-		}
-		else {
-			cout << " El archivo no existe " <<endl;
-		}
-		mazo0.close();
+			}
+			else {
+				cout << " El archivo no existe " <<endl;
+			}
+			mazo0.close();
         }
+		break;
+
+		case 4 :
+		{
+			cartasH.contador = 0;
+			cartasM.contador = 0;
+			puntosDhu = 0;
+			puntosDma = 0;
+				inicializa ( mazo );
+				crearMazo ( mazo );
+				resto [ 0 ] = 12;
+				for ( int i = 1; i < Min; i++ ) {
+					resto [ i ] = 4;
+				}
+				modoDhumano ( mazo, resto, cartasH, puntosDhu );
+				if ( puntosDhu <= 7.5 ) {
+					modoDmaquina ( mazo, resto, puntosDhu,cartasM, puntosDma );
+					resultado = determinaGanador ( puntosDhu, puntosDma );
+					if ( resultado == 1 ) {
+						cout << " Has ganado " << endl;
+						ganador = " Jugador ";
+					}
+					else {
+						cout << " Has perdido " << endl;
+						ganador = " Maquina";
+					}
+				}
+				else {
+					cout << " Has perdido " << endl;
+				}
+				ficheroSalida = to_string ( numpartidas ) + ".txt";
+				cout << ficheroSalida << endl;
+				fichero.open ( ficheroSalida );
+				fichero << " Partida: " << numpartidas << endl;
+				fichero << " El ganador es: " << ganador << endl;;
+				fichero << " Jugador:" << puntosDhu << " puntos " << " y " << " cartas robadas: ";
+				for ( int i = 0; i < cartasH.contador; i++ ) {
+					fichero << " [ " << cartasH.baraja [ i ] << " ] " ;
+				}
+				fichero << endl;
+				fichero << " Maquina: " << puntosDma << " puntos " << " y " << " cartas robadas: ";
+				for ( int i = 0; i < cartasM.contador; i++ ) {
+					fichero << " [ " << cartasM.baraja [ i ] << " ] " ;
+				}
+				fichero <<  endl;
+				fichero << " XXX " << endl;
+				fichero.close ();
+		}
 		break;
 
 		default:
@@ -221,6 +270,26 @@ float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano ) {
 	return puntos;
 }
 
+int determinaGanador ( float puntosJugador, float puntosMaquina ) {
+	int resultado;
+	// Determina el ganador
+	if ( puntosJugador > puntosMaquina ) {
+		resultado = ganaHumano;
+	}
+	else if ( puntosMaquina > puntosJugador ) {
+		if ( puntosMaquina > 7.5 ) {
+			resultado = ganaHumano;
+		}
+		else {
+			resultado = ganaMaquina;
+		}
+	}
+	else {
+		resultado = ganaHumano + rand() % ( ganaMaquina+1-ganaHumano );
+	}
+	return resultado;
+}
+
 void modoChumano (ifstream& file, tCartasPorAparecer cartas, float& puntos){
 	int roba;
 	bool seguir = true;
@@ -304,26 +373,6 @@ bool esProbablePasarse (float puntosMaquina, const tCartasPorAparecer cartas){
 	return seguir;
 }
 
-int determinaGanador ( float puntosJugador, float puntosMaquina ) {
-	int resultado;
-	// Determina el ganador
-	if ( puntosJugador > puntosMaquina ) {
-		resultado = ganaHumano;
-	}
-	else if ( puntosMaquina > puntosJugador ) {
-		if ( puntosMaquina > 7.5 ) {
-			resultado = ganaHumano;
-		}
-		else {
-			resultado = ganaMaquina;
-		}
-	}
-	else {
-		resultado = ganaHumano + rand() % ( ganaMaquina+1-ganaHumano );
-	}
-	return resultado;
-}
-
 void inicializa ( tConjuntoCartas & cartas){
 	for ( int i = 0; i < Max; i = i+10) {
 		for ( int j = 0; j <= 10; j++ ) {
@@ -391,7 +440,8 @@ void modoDhumano ( tConjuntoCartas & mazo, tCartasPorAparecer cartas, tConjuntoC
 }
 
 void modoDmaquina( tConjuntoCartas & mazo, tCartasPorAparecer cartas, float puntosHumano, tConjuntoCartas & cartasMaquina, float & puntos) {
-	int robo, seguir, puntospasar, numrestocartas, numcartas;
+	int robo, seguir, puntospasar;
+	float numrestocartas, numcartas;
 	do {
 		numrestocartas = 0;
 		numcartas = 0;
