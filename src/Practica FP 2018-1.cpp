@@ -145,45 +145,46 @@ int main () {
 			cartasM.contador = 0;
 			puntosDhu = 0;
 			puntosDma = 0;
-				inicializa ( mazo );
-				crearMazo ( mazo );
-				resto [ 0 ] = 12;
-				for ( int i = 1; i < Min; i++ ) {
-					resto [ i ] = 4;
-				}
-				modoDhumano ( mazo, resto, cartasH, puntosDhu );
-				if ( puntosDhu <= 7.5 ) {
-					modoDmaquina ( mazo, resto, puntosDhu,cartasM, puntosDma );
-					resultado = determinaGanador ( puntosDhu, puntosDma );
-					if ( resultado == 1 ) {
-						cout << " Has ganado " << endl;
-						ganador = " Jugador ";
-					}
-					else {
-						cout << " Has perdido " << endl;
-						ganador = " Maquina";
-					}
+			inicializa ( mazo );
+			crearMazo ( mazo );
+			resto [ 0 ] = 12;
+			for ( int i = 1; i < Min; i++ ) {
+				resto [ i ] = 4;
+			}
+			modoDhumano ( mazo, resto, cartasH, puntosDhu );
+			if ( puntosDhu <= 7.5 ) {
+				modoDmaquina ( mazo, resto, puntosDhu,cartasM, puntosDma );
+				resultado = determinaGanador ( puntosDhu, puntosDma );
+				if ( resultado == 1 ) {
+					cout << " Has ganado " << endl;
+					ganador = " Jugador ";
 				}
 				else {
 					cout << " Has perdido " << endl;
+					ganador = " Maquina";
 				}
-				ficheroSalida = to_string ( numpartidas ) + ".txt";
-				cout << ficheroSalida << endl;
-				fichero.open ( ficheroSalida );
-				fichero << " Partida: " << numpartidas << endl;
-				fichero << " El ganador es: " << ganador << endl;;
-				fichero << " Jugador:" << puntosDhu << " puntos " << " y " << " cartas robadas: ";
-				for ( int i = 0; i < cartasH.contador; i++ ) {
-					fichero << " [ " << cartasH.baraja [ i ] << " ] " ;
-				}
-				fichero << endl;
-				fichero << " Maquina: " << puntosDma << " puntos " << " y " << " cartas robadas: ";
-				for ( int i = 0; i < cartasM.contador; i++ ) {
-					fichero << " [ " << cartasM.baraja [ i ] << " ] " ;
-				}
-				fichero <<  endl;
-				fichero << " XXX " << endl;
-				fichero.close ();
+			}
+			else {
+				cout << " Has perdido " << endl;
+				ganador = " Maquina";
+			}
+			ficheroSalida = to_string ( numpartidas ) + ".txt";
+			cout << ficheroSalida << endl;
+			fichero.open ( ficheroSalida );
+			fichero << " Partida: " << numpartidas << endl;
+			fichero << " El ganador es: " << ganador << endl;;
+			fichero << " Jugador:" << puntosDhu << " puntos " << " y " << " cartas robadas: ";
+			for ( int i = 0; i < cartasH.contador; i++ ) {
+				fichero << " [ " << cartasH.baraja [ i ] << " ] " ;
+			}
+			fichero << endl;
+			fichero << " Maquina: " << puntosDma << " puntos " << " y " << " cartas robadas: ";
+			for ( int i = 0; i < cartasM.contador; i++ ) {
+				fichero << " [ " << cartasM.baraja [ i ] << " ] " ;
+			}
+			fichero <<  endl;
+			fichero << " XXX " << endl;
+			fichero.close ();
 		}
 		break;
 
