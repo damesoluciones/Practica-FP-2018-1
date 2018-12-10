@@ -12,6 +12,7 @@
 #include <fstream>
 #include <iomanip>
 #include <string>
+#include <algorithm>
 using namespace std;
 
 const int LimiteInferior = 3, LimiteSuperior = 5,  Min = 8, Max = 40, ganaHumano = 1, ganaMaquina = 2;
@@ -389,14 +390,7 @@ void inicializa ( tConjuntoCartas & cartas){
 }
 
 void crearMazo ( tConjuntoCartas & mazo) {
-	int Pos1, Pos2, aux;
-	for ( int i = 0; i < Max; i++ ) {
-		Pos1 = LimiteInferior + rand() % ( LimiteSuperior+1 - LimiteInferior );
-		Pos2 = LimiteInferior + rand() % ( LimiteSuperior+1 -LimiteInferior );
-		aux = mazo.baraja [ Pos1 ];
-		mazo.baraja [ Pos1 ] = mazo.baraja [ Pos2 ];
-		mazo.baraja [ Pos2 ] = aux;
-	}
+	random_shuffle ( &mazo.baraja [ 0 ], &mazo.baraja [ 39 ] );
 }
 
 void sacarCarta ( tConjuntoCartas & cartas, int & carta) {
