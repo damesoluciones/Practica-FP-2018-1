@@ -1,6 +1,6 @@
 //============================================================================
 // Name        : Practica.cpp
-// Author      : Chuyin y Manuel
+// Author      : Chuyin Zhou Pan y Manuel Díaz del Campo Mínguez
 // Version     : 1.0
 // Copyright   : Todos los derechos reservados
 // Description : Práctica FP 2018-1
@@ -47,7 +47,7 @@ int main () {
 	ofstream fichero;
 	string baraja, ficheroSalida, ganador;
 	int opn, max, numpartidas = 0;
-	float puntosAhu, puntosAma, puntosBhu, puntosBma, puntosChumano = 0, puntosCmaquina = 0, resultado, puntosDhu, puntosDma;
+	float puntosAhu, puntosAma, puntosBhu, puntosBma, puntosChumano, puntosCmaquina, resultado, puntosDhu, puntosDma;
 
 	srand ( time( NULL ) );
 	opn = menu ();
@@ -59,25 +59,30 @@ int main () {
 			cin >> baraja;
 			mazo0.open ( baraja );
 			if ( mazo0.is_open () ) {
+				// Calcula cartas a robar
 				max = LimiteInferior + rand() % (LimiteSuperior+1-LimiteInferior);
+				cout << " El numero de cartas que vas a robar es: " << max << endl << endl;
+				cout << " Cartas jugador1: " << endl;
 				puntosAhu = modoA ( mazo0, max );
 				if ( puntosAhu <= 7.5 ){
+					cout << endl;
+					cout << " Cartas jugador2: " << endl << endl;
 					puntosAma = modoA ( mazo0, max );
 					resultado = determinaGanador ( puntosAhu, puntosAma );
 					// Muestra al ganador
 					if ( resultado == ganaHumano ) {
-						cout << " Has ganado " << endl;
+						cout << " Has ganado " << endl << endl;
 					}
 					else {
-						cout << " Has perdido " << endl;
+						cout << " Has perdido " << endl << endl;
 					}
 				}
 				else {
-					cout << " Has perdido " << endl;
+					cout << " Has perdido " << endl << endl;
 				}
 			}
 			else {
-				cout << " El archivo no existe " <<endl;
+				cout << " El archivo no existe " << endl << endl;
 			}
 			mazo0.close();
             }
@@ -90,23 +95,27 @@ int main () {
 			mazo0.open ( baraja );
 			if ( mazo0.is_open () ) {
 				max = LimiteInferior + rand() % (LimiteSuperior+1-LimiteInferior);
+				cout << " El numero maximo de cartas que puedes robar es: " << max << endl << endl;
+				cout << " Cartas jugador1: " << endl;
 				puntosBhu = modoBhumano ( mazo0, max );
 				if ( puntosBhu <= 7.5 ) {
+					cout << endl;
+					cout << " Cartas jugador2: " << endl << endl;
 					puntosBma = modoBmaquina ( mazo0, max, puntosBhu );
 					resultado = determinaGanador ( puntosBhu, puntosBma );
 					if ( resultado == ganaHumano ) {
-						cout << " Has ganado " << endl;
+						cout << " Has ganado " << endl << endl;
 					}
 					else {
-						cout << " Has perdido " << endl;
+						cout << " Has perdido " << endl << endl;
 					}
 				}
 				else {
-					cout << " Has perdido " << endl;
+					cout << " Has perdido " << endl << endl;
 				}
 		}
 		else {
-			cout << " El archivo no existe " <<endl;
+			cout << " El archivo no existe " << endl << endl;
 		}
 		mazo0.close();
         }
@@ -114,7 +123,8 @@ int main () {
 
 		case 3:
 		{
-
+			puntosChumano = 0;
+			puntosCmaquina = 0;
 			sigcarta [0] = 12;
 			for ( int i = 1; i < Min; i++ ) {
 				sigcarta [i] = 4;
@@ -123,18 +133,27 @@ int main () {
 			cin >> baraja;
 			mazo0.open ( baraja );
 			if ( mazo0.is_open () ) {
+				cout << endl;
+				cout << " Cartas jugador1: " << endl;
 				modoChumano ( mazo0, sigcarta, puntosChumano );
-				modoCmaquina (mazo0, sigcarta, puntosChumano, puntosCmaquina);
-				determinaGanador (puntosChumano, puntosCmaquina);
-				if ( resultado == 1 ){
-					cout << " Has ganado " << endl;
+				if ( puntosChumano <= 7.5 ) {
+					cout << endl;
+					cout << " Cartas jugador2: " << endl << endl;
+					modoCmaquina (mazo0, sigcarta, puntosChumano, puntosCmaquina);
+					determinaGanador (puntosChumano, puntosCmaquina);
+					if ( resultado == ganaHumano ) {
+						cout << " Has ganado " << endl << endl;
+					}
+					else {
+						cout << " Has perdido " << endl << endl;
+					}
 				}
 				else {
-					cout << " Has perdido " << endl;
+					cout << " Has perdido " << endl << endl;
 				}
 			}
 			else {
-				cout << " El archivo no existe " <<endl;
+				cout << " El archivo no existe " << endl << endl;
 			}
 			mazo0.close();
         }
@@ -152,34 +171,49 @@ int main () {
 			for ( int i = 1; i < Min; i++ ) {
 				resto [ i ] = 4;
 			}
+			cout << " Cartas jugador1: " << endl;
 			modoDhumano ( mazo, resto, cartasH, puntosDhu );
 			if ( puntosDhu <= 7.5 ) {
+				cout << endl;
+				cout << " Cartas jugador2: " << endl;
 				modoDmaquina ( mazo, resto, puntosDhu,cartasM, puntosDma );
-				resultado = determinaGanador ( puntosDhu, puntosDma );
-				if ( resultado == 1 ) {
-					cout << " Has ganado " << endl;
-					ganador = " Jugador ";
+				if ( ( puntosDhu == puntosDma ) && ( cartasM.contador != cartasH.contador ) ) {
+					if ( cartasM.contador < cartasH.contador ) {
+						cout << " Has perdido " << endl << endl;
+						ganador = " Jugador2 ";
+					}
+					else {
+						cout << " Has ganado " << endl << endl;;
+						ganador = " Jugador1 ";
+					}
 				}
 				else {
-					cout << " Has perdido " << endl;
-					ganador = " Maquina";
+					resultado = determinaGanador ( puntosDhu, puntosDma );
+					if ( resultado == 1 ) {
+						cout << " Has ganado " << endl << endl;
+						ganador = " Jugador1 ";
+					}
+					else {
+						cout << " Has perdido " << endl << endl;
+						ganador = " Jugador2 ";
+					}
 				}
+
 			}
 			else {
-				cout << " Has perdido " << endl;
-				ganador = " Maquina";
+				cout << " Has perdido " << endl << endl;
+				ganador = " Jugador2 ";
 			}
 			ficheroSalida = to_string ( numpartidas ) + ".txt";
-			cout << ficheroSalida << endl;
 			fichero.open ( ficheroSalida );
 			fichero << " Partida: " << numpartidas << endl;
 			fichero << " El ganador es: " << ganador << endl;;
-			fichero << " Jugador:" << puntosDhu << " puntos " << " y " << " cartas robadas: ";
+			fichero << " Jugador1: " << puntosDhu << " puntos " << " y " << " cartas robadas: ";
 			for ( int i = 0; i < cartasH.contador; i++ ) {
 				fichero << " [ " << cartasH.baraja [ i ] << " ] " ;
 			}
 			fichero << endl;
-			fichero << " Maquina: " << puntosDma << " puntos " << " y " << " cartas robadas: ";
+			fichero << " Jugador2: " << puntosDma << " puntos " << " y " << " cartas robadas: ";
 			for ( int i = 0; i < cartasM.contador; i++ ) {
 				fichero << " [ " << cartasM.baraja [ i ] << " ] " ;
 			}
@@ -244,17 +278,18 @@ float modoBhumano ( ifstream& file, int numCartas ) {
 	}
 	cout << " Tus puntos son: " << puntos << endl;
 	contador++;
-	cout << " 0 para salir " << endl;
-	cout  << " 1 para seguir robando " << endl;
+	cout << " ¿ Quieres seguir robando ? " << endl;
+	cout << " 1 = si, 0 = no " << endl;
 	cin >> salir;
 	}
    return puntos;
 }
 
 float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano ) {
-	int carta, contador = 1, plantarse = 1;
+	int carta, contador = 1;
+	bool plantarse = true;
 	float puntos = 0;
-	while ( ( contador <= numCartas ) && ( plantarse == 1 ) ) {
+	while ( ( contador <= numCartas ) && ( plantarse ) ) {
 		file >> carta;
 		cout << " La carta es: " << carta << endl;
 		if ( carta <= 7 ) {
@@ -263,9 +298,9 @@ float modoBmaquina ( ifstream& file, int numCartas, float puntosHumano ) {
 		else {
 			puntos = puntos + 0.5;
 		}
-		cout << " Tus puntos son: " << puntos << endl;
+		cout << " Los puntos son: " << puntos << endl;
 		if (( puntos == 7.5 ) || ( puntos > puntosHumano ) ) {
-			plantarse = 0;
+			plantarse = false;
 		}
 		contador++;
 	}
@@ -293,9 +328,8 @@ int determinaGanador ( float puntosJugador, float puntosMaquina ) {
 }
 
 void modoChumano (ifstream& file, tCartasPorAparecer cartas, float& puntos){
-	int roba;
-	bool seguir = true;
-	while ( seguir == true ) {
+	int roba, seguir = true;
+	while ( seguir == 1 ) {
 		file >> roba;
 		cout << " La carta es: " << roba << endl;
 		if ( roba <= 7 ) {
@@ -307,76 +341,64 @@ void modoChumano (ifstream& file, tCartasPorAparecer cartas, float& puntos){
 			cartas [0] = cartas [0]-1;
 		}
 		cout << " Tus puntos son: " << puntos << endl;
-		cout << "Quedan estas cartas: "<< endl;
-		cout << "Figura " << cartas[0] << "  As " << cartas[1] << "  Dos " << cartas[2] << "  Tres " << cartas[3] << "  Cuatro " << cartas[4] << "  Cinco " << cartas[5] << "  Seis " << cartas[6] << "  Siete " << cartas[7] << endl;
-		cout << "continuar" << endl;
-	}
+		cout << "Quedan en el mazo: "<< endl;
+		cout << " Figuras = " << cartas [0] << " ; ";
+		for ( int i = 1; i < Min; i++ ) {
+			cout << " [ " << i << " ]= " << cartas [ i ] << " ; ";
+		}
+		cout << endl;
+		cout << " ¿ Quieres seguir robando ? " << endl;
+		cout << " 1 = si, 0 = no " << endl;
+		cin >> seguir;	}
 }
 
 void modoCmaquina (ifstream& file, tCartasPorAparecer cartas, float puntosHumano, float& puntos){
 	int roba;
-	//bool seguir = false ;
-
-
-		if (puntosHumano > puntos) {
-			file >> roba;
-			cout << " La carta es: " << roba << endl;
-			if ( roba <= 7 ) {
+	bool pasarse = false;
+	do {
+		file >> roba;
+		cout << " La carta es: " << roba << endl;
+		if ( roba <= 7 ) {
 			puntos = roba + puntos;
 			cartas [roba] = cartas [roba]-1;
-			}
-			else {
-			puntos = puntos + 0.5;
-			cartas [0] = cartas [0]-1;
-			}
 		}
-
 		else {
-			if ( puntosHumano == puntos ){
-			while (esProbablePasarse( puntos, cartas ) == true)   {
-		    file >> roba;
-			cout << " La carta es: " << roba << endl;
-			if ( roba <= 7 ) {
-			puntos = roba + puntos;
-			cartas [roba] = cartas [roba]-1;
-			}
-			else {
 			puntos = puntos + 0.5;
 			cartas [0] = cartas [0]-1;
-			}
-
-			}
-
-
 		}
-	}
+		cout << " Los puntos son: " << puntos << endl;
+		cout << "Quedan en el mazo: "<< endl;
+		cout << " Figuras = " << cartas [0] << " ; ";
+		for ( int i = 1; i < Min; i++ ) {
+			cout << " [" << i << "]= " << cartas [ i ] << " ; ";
+		}
+		cout << endl;
+		pasarse = esProbablePasarse ( puntos, cartas );
+	} while ( !pasarse );
 }
 
 bool esProbablePasarse (float puntosMaquina, const tCartasPorAparecer cartas){
 	bool seguir;
-	int CartasTotales = 0, CartasPosibles = 0, num = 7;
-	//int PuntosHumanoInt =  modoChumano ( PuntosHumanoInt )
-
-	for ( int i = 0; i < num; i++ ) {
+	float CartasTotales = 0, CartasPosibles = 0, diferencia;
+	for ( int i = 0; i < Min; i++ ) {
 		CartasTotales = cartas [i] + CartasTotales;
-
 	}
-
-	for ( int i = 7 - puntosMaquina + 1; i < num; i++ ) {
+	diferencia = 8 - puntosMaquina;
+	// Te pasas con el numero 8
+	for ( int i = diferencia; i < Min; i++ ) {
 		CartasPosibles = cartas [i] + CartasPosibles;
 	}
-	if (( CartasPosibles / CartasTotales  > 0.5  )) {
-		seguir = false;
+	if (( CartasPosibles / CartasTotales ) > 0.5 ) {
+		seguir = true;
 	}
 	else {
-	seguir = true;
-
+		seguir = false;
 	}
 	return seguir;
 }
 
-void inicializa ( tConjuntoCartas & cartas){
-	for ( int i = 0; i < Max; i = i+10) {
+void inicializa ( tConjuntoCartas & cartas ) {
+	for ( int i = 0; i < Max; i = i+10 ) {
 		for ( int j = 0; j <= 10; j++ ) {
 			if ( j < 7 ) {
 				cartas.baraja[ i+j ] = j+1;
@@ -396,11 +418,13 @@ void crearMazo ( tConjuntoCartas & mazo) {
 void sacarCarta ( tConjuntoCartas & cartas, int & carta) {
 	carta = cartas.baraja[ cartas.contador-1 ];
 	cartas.contador--;
+	// Actualizamos contador
 }
 
 void annadirCarta ( tConjuntoCartas & cartas, int carta) {
 	cartas.baraja [ cartas.contador ] = carta;
 	cartas.contador++;
+	// Actualizamos contador
 }
 
 void modoDhumano ( tConjuntoCartas & mazo, tCartasPorAparecer cartas, tConjuntoCartas & cartasHumano, float & puntos) {
@@ -420,26 +444,25 @@ void modoDhumano ( tConjuntoCartas & mazo, tCartasPorAparecer cartas, tConjuntoC
 		cout << " Tus puntos son: " << puntos << endl;
 		cout << " Las cartas que tienes son: " << endl;
 		for ( int i = 0; i < cartasHumano.contador; i++ ) {
-			cout << " [ " << cartasHumano.baraja [ i ] << " ] " << endl;
+			cout << " [ " << cartasHumano.baraja [ i ] << " ] " << " ; ";
 		}
-		cout << " Las cartas que quedan por robar son: " << endl;
-		cout << " Figuras = " << cartas [ 0 ] << endl;
-		cout << " Ases = " << cartas [ 1 ] << endl;
-		for ( int i = 2; i < Min; i++ ) {
-			cout << " [ " << i << " ] " << " = " << cartas [ i ] << endl;
+		cout << endl;
+		cout << " Las cartas que quedan en el mazo son: " << endl;
+		cout << " Figuras = " << cartas [ 0 ] << " ; ";
+		for ( int i = 1; i < Min; i++ ) {
+			cout << " [ " << i << " ] " << " = " << cartas [ i ] << " ; ";
 		}
-		cout << " � Quieres seguir robando ? " << endl;
+		cout << endl;
+		cout << " ¿ Quieres seguir robando ? " << endl;
 		cout << " 1 = si, 0 = no " << endl;
 		cin >> respuesta;
 	} while ( respuesta == 1);
 }
 
 void modoDmaquina( tConjuntoCartas & mazo, tCartasPorAparecer cartas, float puntosHumano, tConjuntoCartas & cartasMaquina, float & puntos) {
-	int robo, seguir, puntospasar;
-	float numrestocartas, numcartas;
+	int robo;
+	bool pasarse;
 	do {
-		numrestocartas = 0;
-		numcartas = 0;
 		sacarCarta ( mazo, robo );
 		annadirCarta ( cartasMaquina, robo );
 		if ( robo <= 7 ) {
@@ -458,28 +481,10 @@ void modoDmaquina( tConjuntoCartas & mazo, tCartasPorAparecer cartas, float punt
 		}
 		cout << " Las cartas que quedan por robar son: " << endl;
 		cout << " Figuras = " << cartas [ 0 ] << " ; " ;
-		cout << " Ases = " << cartas [ 1 ] << " ; " ;
-		for ( int i = 2; i < Min; i++ ) {
+		for ( int i = 1; i < Min; i++ ) {
 			cout << " [ " << i << " ] " << " = " << cartas [ i ] << " ; " ;
 		}
 		cout << endl;
-		if ( puntos > puntosHumano ) {
-			seguir = 0;
-		}
-		else {
-			puntospasar = 8 - puntos;
-			for ( int i = 0; i < Min; i++ ) {
-				numrestocartas = cartas [ i ] + numrestocartas;
-			}
-			for ( int i = puntospasar; i < 7; i++ ){
-				numcartas = cartas [ i ] + numcartas ;
-			}
-			if ( numcartas/numrestocartas < 0.5) {
-				seguir = 1;
-			}
-			else {
-				seguir = 0;
-			}
-		}
-	} while ( seguir  == 1);
+		pasarse = esProbablePasarse ( puntos, cartas );
+	} while ( !pasarse );
 }
