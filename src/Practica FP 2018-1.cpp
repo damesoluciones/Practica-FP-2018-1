@@ -1,6 +1,6 @@
 //============================================================================
 // Name        : Practica.cpp
-// Author      : Chuyin Zhou Pan y Manuel Díaz del Campo Mínguez
+// Author      : Chuyin Zhou Pan y Manuel Diaz del Campo Minguez
 // Version     : 1.0
 // Copyright   : Todos los derechos reservados
 // Description : Práctica FP 2018-1
@@ -453,9 +453,14 @@ void modoDhumano ( tConjuntoCartas & mazo, tCartasPorAparecer cartas, tConjuntoC
 			cout << " [ " << i << " ] " << " = " << cartas [ i ] << " ; ";
 		}
 		cout << endl;
-		cout << " ¿ Quieres seguir robando ? " << endl;
-		cout << " 1 = si, 0 = no " << endl;
-		cin >> respuesta;
+		if ( puntos > 7.5 ) {
+			respuesta = 0;
+		}
+		else {
+			cout << " ¿ Quieres seguir robando ? " << endl;
+			cout << " 1 = si, 0 = no " << endl;
+			cin >> respuesta;
+		}
 	} while ( respuesta == 1);
 }
 
